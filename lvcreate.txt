@@ -1,0 +1,89 @@
+pvcreate  /dev/sdb
+
+
+vgcreate myvg /dev/sdb
+vgscan
+
+
+lvcreate -n lv_home --size 3g myvg
+
+lvcreate -n lv_tmp --size 1g myvg
+
+lvdisplay
+
+
+
+mkfs.ext4 /dev/myvg/lv_home
+
+mkfs.ext4 /dev/myvg/lv_tmp
+
+
+fdisk -l
+
+
+mount /dev/myvg/lv_home  /home
+mount /dev/myvg/lv_tmp   /tmp
+
+vi /etc/fstab
+cat /etc/fstab
+
+
+vi /etc/selinux/config     
+pvdisplay
+
+
+df -h
+
+reboot
+
+df -h
+
+
+
+
+
+[root@MachineE ~]# umount /home/
+[root@MachineE ~]# cd /home/
+[root@MachineE home]# ls
+abernand     cbratton  jhalpert  lost+found  mpalmer    pbeesly  shudson
+accountants  dphilbin  kkapoor   lowerydd    mscott     plapin   tflenderson
+amartin      dschrute  kmalone   managers    omartinez  sales
+[root@MachineE home]# mount /dev/myvg/lv_home /mnt
+[root@MachineE home]# mv -r /home/*   /mnt
+mv: invalid option -- 'r'
+Try `mv --help' for more information.
+[root@MachineE home]# mv /home/*   /mnt
+mv: overwrite `/mnt/lost+found'? n
+[root@MachineE home]# umount /mnt
+[root@MachineE home]# mount /dev/myvg/lv_home    /home
+
+
+
+
+
+
+[root@MachineE home]# cd
+[root@MachineE ~]# umount /tmp
+[root@MachineE ~]# mount /dev/myvg/lv_tmp    /mnt
+[root@MachineE ~]# mv  /tmp/*     /mnt
+mv: overwrite `/mnt/vmware-root'? n
+[root@MachineE ~]# umount /mnt
+[root@MachineE ~]# mount /dev/myvg/lv_tmp    /tmp
+[root@MachineE ~]# cd /tmp
+[root@MachineE tmp]# ls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
